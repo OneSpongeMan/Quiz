@@ -6,8 +6,8 @@ namespace Quiz.Shared.Models
     {
         [Key]
         public Guid Id { get; set; }
-        public Quizz Quizz { get; set; }
         public Guid QuizId { get; set; }
+        public Quizz Quizz { get; set; }
         public string Text { get; set; }
         public byte[]? Image { get; set; }
         public string AnswerType { get; set; }
@@ -23,7 +23,6 @@ namespace Quiz.Shared.Models
             this.Text = text;
             this.AnswerType = answerType;
             this.Image = image;
-            this.AnswerType = AnswerType;
 
         }
     }

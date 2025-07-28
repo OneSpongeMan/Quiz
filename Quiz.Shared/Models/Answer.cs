@@ -6,8 +6,8 @@ namespace Quiz.Shared.Models
     {
         [Key]
         public Guid Id { get; set; }
-        public Question Question { get; set; }
         public Guid QuestionId { get; set; }
+        public Question Question { get; set; }
         public string Text { get; set; }
         public int Score { get; set; }
 
