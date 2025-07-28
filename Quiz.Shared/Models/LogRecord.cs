@@ -6,10 +6,10 @@ namespace Quiz.Shared.Models
     {
         [Key]
         public Guid Id { get; set; }
-        public User User { get; set; }
         public Guid UserId { get; set; }
-        public Quizz Quizz { get; set; }
+        public User User { get; set; }
         public Guid QuizId { get; set; }
+        public Quizz Quizz { get; set; }
         public DateTime CreatedDate { get; set; }
         public string LogSummary { get; set; }
 
