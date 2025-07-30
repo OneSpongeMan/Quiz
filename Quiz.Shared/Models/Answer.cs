@@ -1,15 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+
 namespace Quiz.Shared.Models
 {
     public class Answer
     {
         [Key]
-        public Guid Id { get; set; }
-        public Guid QuestionId { get; set; }
-        public Question Question { get; set; }
+        public Guid Id { get; set; }        
         public string Text { get; set; }
         public int Score { get; set; }
+
+        public Guid QuestionId { get; set; }
+        public Question Question { get; set; }
 
         public Answer() { }
 

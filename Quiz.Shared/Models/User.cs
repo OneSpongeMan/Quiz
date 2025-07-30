@@ -1,27 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Quiz.Shared.Models
 {
-    public class User
+    public class User : IdentityUser
     {
-        [Key]
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public Guid RoleId { get; set; }
-        public virtual Role Role { get; set; }
-        public string PasswordHash { get; set; }
         public DateTime? LatestLogIn { get; set; }
-        public Guid StatsId { get; set; }
-        public virtual UserStats Stats { get; set; }
+        public float AverageScore { get; set; }
 
-        public User() { }
+        //public Guid? StatsId { get; set; }
+        //public virtual UserStats? Stats { get; set; }
 
-        public User(Guid id, string name, Guid roleId, string passwordHash)
-        {
-            this.Id = id;
-            this.Name = name;
-            this.RoleId = roleId;
-            this.PasswordHash = passwordHash;
-        }
+        public virtual ICollection<Quizz> Quizzes { get; set; }
     }
 }
