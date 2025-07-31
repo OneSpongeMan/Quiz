@@ -11,6 +11,7 @@ namespace Quiz.Shared.Models
 
         public string UserId { get; set; }
         public User User { get; set; }
+
         public Guid QuizzId { get; set; }
         public Quizz Quizz { get; set; }
 
