@@ -54,8 +54,8 @@ namespace Quiz.DAL.EF
 
             for ( int i = 0; i < changesFullInfo.Count(); i++)
             {
-                if (changesFullInfo[i].Split(' ')[0] == "Question" 
-                    || changesFullInfo[i].Split(' ')[0] == "Answer")
+                if (changesFullInfo[i].Split(' ')[0] == "Question" ||
+                    changesFullInfo[i].Split(' ')[0] == "Answer")
                 {
                     string metaData = DiscoverEntityMetadata(changesFullInfo, i);
                     string changesData = DiscoverEntityChanges();

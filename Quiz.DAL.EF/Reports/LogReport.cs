@@ -14,10 +14,11 @@ namespace Quiz.DAL.EF.Reports
         public DateTime _dateEnd;
         public string _authorName;
 
-        public LogReport(List<LogRecord> logRecords, FileService fileService, DateTime dateStart, DateTime dateEnd, string authorName)
+        public LogReport(List<LogRecord> logRecords, DateTime dateStart, DateTime dateEnd, string authorName)
         {
+            _excelGenerator = new LogReportExcelGenerator();
+            _fileService = new FileService();
             _logRecords = logRecords;
-            _fileService = fileService;
             _dateStart = dateStart;
             _dateEnd = dateEnd;
             _authorName = authorName;
