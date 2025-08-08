@@ -37,21 +37,15 @@ namespace Quiz.API
 
         private void AddInterfaceConnectionsToService()
         {
+            //_builder.Services.AddDbContext<ApplicationContext>();
+
             string connection = _builder.Configuration.GetConnectionString("DefaultConnections");
 
             _builder.Services.AddDbContext<ApplicationContext>(options =>
-                options.UseNpgsql(connection),
-                ServiceLifetime.Transient);
+            options.UseNpgsql(connection),
+            ServiceLifetime.Transient);
 
-            _builder.Services.AddIdentity<User, Role>(options =>
-            {
-                options.Password.RequiredLength = 8;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = true;
-                options.Password.RequireLowercase = true;
-                options.Password.RequireDigit = true;
-                options.Stores.ProtectPersonalData = true;
-            })
+            _builder.Services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<ApplicationContext>()
                 .AddDefaultTokenProviders();
 
