@@ -14,5 +14,7 @@ namespace Quiz.Shared.Interfaces
         bool CreateQuizz(Quizz quizz);
         bool DeleteQuizz(Guid id);
         bool UpdateQuizz(Quizz quizz);
+        bool DeleteQuizz(User author, Guid id);
+        bool UpdateQuizz(User author, Quizz quizz);
     }
 }

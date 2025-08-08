@@ -107,6 +107,28 @@ namespace Quiz.DAL.EF.Loaders
             return false;
         }
 
+        public bool DeleteQuizz(User author, Guid id)
+        {
+            var item = GetQuizz(id);
+            if (item != null && item.AuthorId == author.Id)
+            {
+                return DeleteQuizz(id);
+            }
+            return false;
+        }
+
+        public bool UpdateQuizz(User author, Quizz quizz)
+        {
+            var item = GetQuizz(quizz.Id);
+            if (item != null && item.AuthorId == author.Id)
+            {
+                return UpdateQuizz(quizz);
+            }
+            return false;
+        }
+
+
+
         private List<Quizz> Sort(List<Quizz> quizzes)
         {
             return (from e in quizzes

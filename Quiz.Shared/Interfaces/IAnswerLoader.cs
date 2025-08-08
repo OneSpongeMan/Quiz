@@ -9,5 +9,7 @@ namespace Quiz.Shared.Interfaces
         bool CreateAnswer(Question question, Answer answer);
         bool DeleteAnswer(Guid id);
         bool UpdateAnswer(Answer answer);
+        bool DeleteAnswer(User authpr, Guid id);
+        bool UpdateAnswer(User author, Answer answer);
     }
 }

@@ -68,5 +68,25 @@ namespace Quiz.DAL.EF.Loaders
             }
             return false;
         }
+
+        public bool DeleteQuestion(User author, Guid id)
+        {
+            var item = GetQuestion(id);
+            if (item != null && item.Quizz.AuthorId == author.Id)
+            {
+                return DeleteQuestion(id);
+            }
+            return false;
+        }
+
+        public bool UpdateQuestion(User author, Question question)
+        {
+            var item = GetQuestion(question.Id);
+            if (item != null && item.Quizz.AuthorId == author.Id)
+            {
+                return UpdateQuestion(question);
+            }
+            return false;
+        }
     }
 }
