@@ -29,6 +29,14 @@ namespace Quiz.DAL.EF.Loaders
                 .ToList();
         }
 
+        public List<Result> GetUserResults(string userId)
+        {
+            return _applicationContext.Results
+                .Include(q => q.User)
+                .Where(q => q.UserId == userId)
+                .ToList();
+        }
+
         public bool CreateResult(Result result)
         {
             if (GetResult(result.Id) == null)

@@ -11,6 +11,8 @@ namespace Quiz.Shared.Interfaces
         List<Quizz> GetAllQuizzesByTags(ICollection<string> tags);
         List<Quizz> GetAllQuizzesByAuthor(string authorId);
         List<Quizz> GetAllQuizzesUserCompleted(string userId);
+        //Task StartQuizAsync(int quizId);
+        //Task EndQuizAsync(int quizId);
         bool CreateQuizz(Quizz quizz);
         bool DeleteQuizz(Guid id);
         bool UpdateQuizz(Quizz quizz);

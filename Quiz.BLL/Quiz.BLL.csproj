@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Quiz.DAL.EF\Quiz.DAL.EF.csproj" />
+    <ProjectReference Include="..\Quiz.Shared\Quiz.Shared.csproj" />
+  </ItemGroup>
+
 </Project>
