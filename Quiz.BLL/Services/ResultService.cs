@@ -6,10 +6,15 @@ namespace Quiz.BLL.Services
     public class ResultService : IResultService
     {
         private IResultLoader _resultLoader;
+        private IQuestionLoader _questionLoader;
+        private IAnswerLoader _answerLoader;
 
-        public ResultService(IResultLoader resultLoader)
+
+        public ResultService(IResultLoader resultLoader, IQuestionLoader questionLoader, IAnswerLoader answerLoader)
         {
             _resultLoader = resultLoader;
+            _questionLoader = questionLoader;
+            _answerLoader = answerLoader;
         }
 
         public Result GetResult(Guid id)
@@ -27,6 +32,21 @@ namespace Quiz.BLL.Services
             return _resultLoader.GetUserResults(userId);
         }
 
+        public void ScoringPoints(List<Guid> answerIds, Guid questionId, string userId)
+        {
+            var question = _questionLoader.GetQuestion(questionId);
+            var answerType = question.AnswerType;
+            var rightAnswers = _answerLoader.GetRightAnswers(question);
+
+            var result = _resultLoader.GetUserQuizResult(_questionLoader.GetQuestion(questionId).QuizzId, userId);
+
+            foreach (var answerId in answerIds)
+            {
+                var answer = _answerLoader.GetAnswer(answerId);
+                result.ScoredPoints += answer.Score;
+            }
+        }
+
         public bool CreateResult(Result result)
         {
             result.Id = Guid.NewGuid();
@@ -40,7 +60,7 @@ namespace Quiz.BLL.Services
 
         public bool UpdateResult(Result result)
         {
-            throw new NotImplementedException();
-        }
+            return _resultLoader.UpdateResult(result);
+        }        
     }
 }

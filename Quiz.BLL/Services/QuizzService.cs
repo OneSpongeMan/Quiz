@@ -6,10 +6,12 @@ namespace Quiz.BLL.Services
     public class QuizzService : IQuizzService
     {
         private IQuizzLoader _quizzLoader;
+        private IResultLoader _resultLoader;
 
-        public QuizzService(IQuizzLoader quizzLoader)
+        public QuizzService(IQuizzLoader quizzLoader, IResultLoader resultLoader)
         {
             _quizzLoader = quizzLoader;
+            _resultLoader = resultLoader;
         }
 
         public Quizz GetQuizz(Guid id)
@@ -42,6 +44,59 @@ namespace Quiz.BLL.Services
         public List<Quizz> GetAllQuizzesUserCompleted(string userId)
         {
             return _quizzLoader.GetAllQuizzesUserCompleted(userId);
+        }
+
+        public bool StartQuizz(Guid id, string userId)
+        {
+            var userResult = _resultLoader.GetUserQuizResult(id, userId);
+            if (userResult == null)
+            {
+                userResult = new Result();
+                userResult.Id = Guid.NewGuid();
+                userResult.UserId = userId;
+                userResult.QuizzId = id;
+                userResult.ScoredPoints = 0;
+                userResult.RightAnswers = 0;
+                userResult.Start = DateTime.Now;
+
+                _resultLoader.CreateResult(userResult);
+                return true;
+            }
+            return false;
+        }
+
+        public bool EndQuizz(Guid id, string userId)
+        {
+            var userResult = _resultLoader.GetUserQuizResult(id, userId);
+            if (userResult != null)
+            {
+                userResult.Finish = DateTime.Now;
+
+                _resultLoader.UpdateResult(userResult);
+                return true;
+            }
+            return false;
+        }
+
+        public bool IsQuizTimeExpired(Guid resultId)
+        {
+            var result = _resultLoader.GetResult(resultId);
+            if (result.Finish.HasValue) { return true; }
+
+            var timeElapsed = DateTime.Now - result.Start;
+            return timeElapsed > result.Quizz.Duration;
+        }
+
+        public void CompleteQuizIfTimeExpired(Guid resultId)
+        {
+            var result = _resultLoader.GetResult(resultId);
+            if (result.Finish.HasValue) return;
+
+            if (IsQuizTimeExpired(resultId))
+            {
+                result.Finish = DateTime.Now;
+                _resultLoader.UpdateResult(result);
+            }
         }
 
         public bool CreateQuizz(Quizz quizz)

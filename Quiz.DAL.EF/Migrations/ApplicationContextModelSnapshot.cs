@@ -268,7 +268,7 @@ namespace Quiz.DAL.EF.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("Finish")
+                    b.Property<DateTime?>("Finish")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("QuizzId")

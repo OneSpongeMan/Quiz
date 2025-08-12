@@ -30,12 +30,12 @@ namespace Quiz.BLL.Services
 
         public bool DeleteRole(string id)
         {
-            throw new NotImplementedException();
+            return _roleLoader.DeleteRole(id);
         }
 
         public bool UpdateRole(Role role)
         {
-            throw new NotImplementedException();
+            return _roleLoader.UpdateRole(role);
         }
     }
 }
