@@ -38,6 +38,7 @@ namespace Quiz.BLL.Services
             var answerType = question.AnswerType;
             var rightAnswers = _answerLoader.GetRightAnswers(question);
 
+            // Придумать что-то получше?
             var result = _resultLoader.GetUserQuizResult(_questionLoader.GetQuestion(questionId).QuizzId, userId);
 
             foreach (var answerId in answerIds)
@@ -46,6 +47,8 @@ namespace Quiz.BLL.Services
                 result.ScoredPoints += answer.Score;
             }
         }
+
+        //public AquiringRightAnswer()
 
         public bool CreateResult(Result result)
         {

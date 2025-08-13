@@ -8,6 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 //using FluentMigrator.Runner;
 //using Quiz.DAL.EF.Migrations;
 using Quiz.BLL;
+using Quiz.BLL.Certificates;
+using Quiz.BLL.Services;
 using Quiz.DAL.EF;
 using Quiz.DAL.EF.Loaders;
 using Quiz.Shared.Interfaces;
@@ -58,6 +60,16 @@ namespace Quiz.API
             _builder.Services.AddTransient<IResultLoader, ResultLoader>();
             _builder.Services.AddTransient<IRoleLoader, RoleLoader>();
             _builder.Services.AddTransient<IUserLoader, UserLoader>();
+
+            _builder.Services.AddTransient<IQuizzService, QuizzService>();
+            _builder.Services.AddTransient<IQuestionService, QuestionService>();
+            _builder.Services.AddTransient<IAnswerService, AnswerService>();
+            _builder.Services.AddTransient<ILogRecordService, ILogRecordService>();
+            _builder.Services.AddTransient<IResultService, ResultService>();
+            _builder.Services.AddTransient<IRoleService, RoleService>();
+            _builder.Services.AddTransient<IUserService, UserService>();
+            _builder.Services.AddTransient<IPDFCertificateService, PDFCertificateService>();
+            _builder.Services.AddSingleton<ICertificateGenerator, PDFCertificateGenerator>();
         }
     }
 }
