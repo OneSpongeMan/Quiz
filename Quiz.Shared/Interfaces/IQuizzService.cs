@@ -11,6 +11,10 @@ namespace Quiz.Shared.Interfaces
         List<Quizz> GetAllQuizzesByTags(ICollection<string> tags);
         List<Quizz> GetAllQuizzesByAuthor(string authorId);
         List<Quizz> GetAllQuizzesUserCompleted(string userId);
+        bool StartQuizz(Guid id, string userId);
+        bool EndQuizz(Guid id, string userId);
+        bool IsQuizTimeExpired(Guid resultId);
+        void CompleteQuizIfTimeExpired(Guid resultId);
         bool CreateQuizz(Quizz quizz);
         bool DeleteQuizz(Guid id);
         bool UpdateQuizz(Quizz quizz);

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quiz.DAL.EF
+namespace Quiz.Shared
 {
-    internal class FileService
+    public class FileService
     {
         public FileService() { }
 

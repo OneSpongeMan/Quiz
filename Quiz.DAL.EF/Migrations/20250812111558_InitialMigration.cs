@@ -242,7 +242,7 @@ namespace Quiz.DAL.EF.Migrations
                     ScoredPoints = table.Column<int>(type: "integer", nullable: false, defaultValue: 0),
                     RightAnswers = table.Column<int>(type: "integer", nullable: false),
                     Start = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Finish = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Finish = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     UserId = table.Column<string>(type: "text", nullable: false),
                     QuizzId = table.Column<Guid>(type: "uuid", nullable: false)
                 },

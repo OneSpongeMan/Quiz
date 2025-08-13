@@ -12,7 +12,7 @@ using Quiz.DAL.EF;
 namespace Quiz.DAL.EF.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20250807120319_InitialMigration")]
+    [Migration("20250812111558_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -271,7 +271,7 @@ namespace Quiz.DAL.EF.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("Finish")
+                    b.Property<DateTime?>("Finish")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("QuizzId")

@@ -1,4 +1,5 @@
-﻿using Quiz.Shared.Models;
+﻿using Quiz.Shared;
+using Quiz.Shared.Models;
 using System.Diagnostics;
 
 namespace Quiz.DAL.EF.Reports
