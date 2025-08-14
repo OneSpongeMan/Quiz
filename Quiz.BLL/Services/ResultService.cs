@@ -35,11 +35,9 @@ namespace Quiz.BLL.Services
         public void ScoringPoints(List<Guid> answerIds, Guid questionId, string userId)
         {
             var question = _questionLoader.GetQuestion(questionId);
-            var answerType = question.AnswerType;
             var rightAnswers = _answerLoader.GetRightAnswers(question);
 
-            // Придумать что-то получше?
-            var result = _resultLoader.GetUserQuizResult(_questionLoader.GetQuestion(questionId).QuizzId, userId);
+            var result = _resultLoader.GetUserQuizResult(question.QuizzId, userId);
 
             foreach (var answerId in answerIds)
             {
@@ -49,6 +47,18 @@ namespace Quiz.BLL.Services
         }
 
         //public AquiringRightAnswer()
+
+        public bool IsResultValid(Guid id)
+        {
+            var result = _resultLoader.GetResult(id);
+
+            if (result.Finish > result.Quizz.UpdatedDate)
+            {
+                return true;
+            }
+
+            return false;
+        }
 
         public bool CreateResult(Result result)
         {
