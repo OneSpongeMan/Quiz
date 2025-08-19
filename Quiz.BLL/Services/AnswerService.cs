@@ -6,10 +6,12 @@ namespace Quiz.BLL.Services
     public class AnswerService : IAnswerService
     {
         private IAnswerLoader _answerLoader;
+        private IQuestionLoader _questionLoader;
 
-        public AnswerService(IAnswerLoader answerLoader)
+        public AnswerService(IAnswerLoader answerLoader, IQuestionLoader questionLoader)
         {
             _answerLoader = answerLoader;
+            _questionLoader = questionLoader;
         }
 
         public Answer GetAnswer(Guid id)
@@ -17,18 +19,21 @@ namespace Quiz.BLL.Services
             return _answerLoader.GetAnswer(id);
         }
 
-        public List<Answer> GetAllAnswers(Question question)
+        public List<Answer> GetAllAnswers(Guid questionId)
         {
+            var question = _questionLoader.GetQuestion(questionId);
             return _answerLoader.GetAllAnswers(question);
         }
 
-        public List<Answer> GetRightAnswers(Question question)
+        public List<Answer> GetRightAnswers(Guid questionId)
         {
+            var question = _questionLoader.GetQuestion(questionId);
             return _answerLoader.GetRightAnswers(question);
         }
 
-        public bool ValidateAnswers(Question question)
+        public bool ValidateAnswers(Guid questionId)
         {
+            var question = _questionLoader.GetQuestion(questionId);
             var items = _answerLoader.GetRightAnswers(question);
             if (items != null)
             {
