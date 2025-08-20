@@ -7,7 +7,7 @@ using Quiz.Shared.Models;
 
 namespace Quiz.API.Controllers
 {
-    [Route("api/quiz/admin")]
+    [Route("api/answer/admin")]
     [ApiController]
     [Authorize(Roles = "Admin")]
     public class AnswerAdminController : ControllerBase
