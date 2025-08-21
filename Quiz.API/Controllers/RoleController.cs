@@ -7,9 +7,9 @@ using Quiz.Shared.Models;
 
 namespace Quiz.API.Controllers
 {
-    [Route("api/user")]
+    [Route("api/role-management")]
     [ApiController]
-    [Authorize(Roles = "SuperAdmin")]
+    [Authorize(Roles = "Admin")]
     public class RoleController : ControllerBase
     {
         private readonly IRoleService _roleService;
@@ -33,20 +33,20 @@ namespace Quiz.API.Controllers
             return _roleService.GetAllRoles();
         }
 
-        [HttpPost("password/{password}")]
-        public bool CreateUser([FromBody] Role role)
+        [HttpPost]
+        public bool CreateRole([FromBody] Role role)
         {
             return _roleService.CreateRole(role);
         }
 
         [HttpDelete("{id}")]
-        public bool DeleteUSer(string id)
+        public bool DeleteRole(string id)
         {
             return _roleService.DeleteRole(id);
         }
 
         [HttpPut]
-        public bool UpdateUser([FromBody] Role role)
+        public bool UpdateRole([FromBody] Role role)
         {
             return _roleService.UpdateRole(role);
         }

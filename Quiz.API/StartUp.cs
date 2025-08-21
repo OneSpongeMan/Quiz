@@ -1,21 +1,11 @@
-﻿//using Quiz.Shared.Settings;
-//using Microsoft.OpenApi.Models;
-//using Microsoft.AspNetCore.Authentication.JwtBearer;
-//using Microsoft.IdentityModel.Tokens;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-//using FluentMigrator.Runner;
-//using Quiz.DAL.EF.Migrations;
-using Quiz.BLL;
 using Quiz.BLL.Certificates;
 using Quiz.BLL.Services;
 using Quiz.DAL.EF;
 using Quiz.DAL.EF.Loaders;
 using Quiz.Shared.Interfaces;
 using Quiz.Shared.Models;
-using System.Runtime;
-using System.Text;
 
 namespace Quiz.API
 {
@@ -44,12 +34,25 @@ namespace Quiz.API
             string connection = _builder.Configuration.GetConnectionString("DefaultConnections");
 
             _builder.Services.AddDbContext<ApplicationContext>(options =>
-            options.UseNpgsql(connection),
-            ServiceLifetime.Transient);
+                options.UseNpgsql(connection),
+                ServiceLifetime.Transient);
 
             _builder.Services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<ApplicationContext>()
                 .AddDefaultTokenProviders();
+
+            _builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("VuePolicy", policy =>
+                {
+                    policy.WithOrigins("http://localhost:8080")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+                });
+            });
+
+            //_builder.Services.AddDefaultIdentity<User>()
+            //    .AddRoles<Role>();
 
             //_builder.Services.AddAutoMapper(typeof(Program));
 

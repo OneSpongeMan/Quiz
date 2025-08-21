@@ -7,18 +7,20 @@ using Quiz.Shared.Models;
 
 namespace Quiz.API.Controllers
 {
-    [Route("api/question/admin")]
+    [Route("api/admin/quiz/{quizzId}")]
     [ApiController]
     [Authorize(Roles = "Admin")]
     public class QuestionAdminController : ControllerBase
     {
         private readonly IQuestionService _questionService;
+        private readonly IAnswerService _answerService;
         private readonly IQuizzService _quizzService;
         private readonly IMapper _mapper;
 
-        public QuestionAdminController(IQuestionService questionService, IQuizzService quizzService, IMapper mapper)
+        public QuestionAdminController(IQuestionService questionService, IAnswerService answerService, IQuizzService quizzService, IMapper mapper)
         {
             _questionService = questionService;
+            _answerService = answerService;
             _quizzService = quizzService;
             _mapper = mapper;
         }

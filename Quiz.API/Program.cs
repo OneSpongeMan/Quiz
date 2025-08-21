@@ -16,6 +16,12 @@ namespace Quiz.API
 
             //app.MapGet("/", () => "Hello World!");
 
+            app.UseCors("VyePolicy");
+            app.UseHttpsRedirection();
+            app.UseAuthentication();
+            app.UseAuthorization();
+            app.MapControllers();            
+
             app.Run();
         }
     }

@@ -7,7 +7,7 @@ using Quiz.Shared.Models;
 
 namespace Quiz.API.Controllers
 {
-    [Route("api/quiz/admin")]
+    [Route("api/admin/quiz")]
     [ApiController]
     [Authorize(Roles = "Admin")]
     public class QuizzAdminController : ControllerBase
@@ -21,67 +21,67 @@ namespace Quiz.API.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("quiz/{id}")]
+        [HttpGet("{id}")]
         public QuizzDTO GetQuizz(Guid id)
         {
             return _mapper.Map<QuizzDTO>(_quizzService.GetQuizz(id));
         }
 
-        [HttpGet("quizzes")]
+        [HttpGet]
         public IEnumerable<QuizzDTO> GetAllQuizzes()
         {
             return _quizzService.GetAllQuizzes()
                 .Select(q => _mapper.Map<QuizzDTO>(q));
         }
 
-        [HttpGet("quizzes/sorted")]
+        [HttpGet("sorted")]
         public IEnumerable<QuizzDTO> GetAllQuizzesSorted()
         {
             return _quizzService.GetAllQuizzesSorted()
                 .Select(q => _mapper.Map<QuizzDTO>(q));
         }
 
-        [HttpGet("quizzes/name:{name}")]
+        [HttpGet("name:{name}")]
         public IEnumerable<QuizzDTO> GetQuizzesByName(string name)
         {
             return _quizzService.GetQuizzByName(name)
                 .Select(q => _mapper.Map<QuizzDTO>(q));
         }
 
-        [HttpGet("quizzes/tagged")]
+        [HttpGet("tagged:{tags}")]
         public IEnumerable<QuizzDTO> GetAllQuizzesByTags(ICollection<string> tags)
         {
             return _quizzService.GetAllQuizzesByTags(tags)
                 .Select(q => _mapper.Map<QuizzDTO>(q));
         }
 
-        [HttpGet("quizzes/{authorId}_authored")]
+        [HttpGet("{authorId}_authored")]
         public IEnumerable<QuizzDTO> GetAllQuizzesByAuthor(string authorId)
         {
             return _quizzService.GetAllQuizzesByAuthor(authorId)
                 .Select(q => _mapper.Map<QuizzDTO>(q));
         }
 
-        [HttpGet("quizzes/{userId}_completed")]
+        [HttpGet("{userId}_completed")]
         public IEnumerable<QuizzDTO> GetAllQuizzesUserCompleted(string userId)
         {
             return _quizzService.GetAllQuizzesUserCompleted(userId)
                 .Select(q => _mapper.Map<QuizzDTO>(q));
         }
 
-        [HttpPost("quiz/start/user_{userId}:{id}")]
+        [HttpPost("start/user_{userId}:{id}")]
         public bool StartQuizz(Guid id, string userId)
         {
             return _quizzService.StartQuizz(id, userId);
         }
 
-        [HttpPut("quiz/end/user_{userId}:{id}")]
+        [HttpPut("end/user_{userId}:{id}")]
         public bool EmdQuizz(Guid id, string userId)
         {
             return _quizzService.EndQuizz(id, userId);
         }
 
-        [HttpPut("quiz/end/quiz_result:{resultId}")]
+        [HttpPut("end-forced/quiz_result:{resultId}")]
         public void CompleteQuizIfTimeExpired(Guid resultId)
         {
             _quizzService.CompleteQuizIfTimeExpired(resultId);
@@ -93,7 +93,7 @@ namespace Quiz.API.Controllers
             return _quizzService.CreateQuizz(_mapper.Map<Quizz>(quizz));
         }
 
-        [HttpDelete("quiz/{id}")]
+        [HttpDelete("{id}")]
         public bool DeleteQuizz(Guid id)
         {
             return _quizzService.DeleteQuizz(id);

@@ -8,7 +8,7 @@ using System.Security.Claims;
 
 namespace Quiz.API.Controllers
 {
-    [Route("api/question/user")]
+    [Route("api/user/quiz/{quizzId}")]
     [ApiController]
     [Authorize(Roles = "User")]
     public class QuestionUserController : ControllerBase
@@ -29,7 +29,7 @@ namespace Quiz.API.Controllers
         [HttpGet("question/{id}")]
         public QuestionDTO GetQuestion(Guid id)
         {
-            return _mapper.Map<QuestionDTO>(_questionService.GetAllQuestions(id));
+            return _mapper.Map<QuestionDTO>(_questionService.GetQuestion(id));
         }
 
         [HttpGet("questions")]

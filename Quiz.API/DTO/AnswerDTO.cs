@@ -7,7 +7,6 @@ namespace Quiz.API.DTO
         [Key]
         public Guid Id { get; set; }
         public required string Text { get; set; }
-        public int Score { get; set; }
 
         public Guid QuestionId { get; set; }
         public QuestionDTO? Question { get; set; }

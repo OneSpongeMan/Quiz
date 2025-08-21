@@ -29,7 +29,7 @@ namespace Quiz.API.Controllers
             return _mapper.Map<ResultDTO>(_resultService.GetResult(id));
         }
 
-        [HttpGet("quiz")]
+        [HttpGet("quiz:{quizzId}")]
         [Authorize(Roles = "Admin")]
         public IEnumerable<ResultDTO> GetQuizzResults(Guid quizzId)
         {
@@ -41,7 +41,6 @@ namespace Quiz.API.Controllers
         [Authorize(Roles = "Admin, User")]
         public IEnumerable<ResultDTO> GetUserResults()
         {
-
             return _resultService.GetUserResults(GetCurrentUser().Id)
                 .Select(q => _mapper.Map<ResultDTO>(q));
         }

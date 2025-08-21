@@ -8,9 +8,9 @@ using Quiz.Shared.Models;
 
 namespace Quiz.API.Controllers
 {
-    [Route("api/user")]
+    [Route("api/user-management")]
     [ApiController]
-    [Authorize(Roles = "SuperAdmin")]
+    [Authorize(Roles = "Admin")]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -58,7 +58,7 @@ namespace Quiz.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public bool DeleteUSer(string id)
+        public bool DeleteUser(string id)
         {
             return _userService.DeleteUser(id);
         }

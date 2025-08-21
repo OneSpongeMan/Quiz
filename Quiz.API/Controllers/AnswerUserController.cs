@@ -8,7 +8,7 @@ using System.Security.Claims;
 
 namespace Quiz.API.Controllers
 {
-    [Route("api/answer/user")]
+    [Route("api/user/quiz/{quizId}/question/{questionId}")]
     [ApiController]
     [Authorize(Roles = "User")]
     public class AnswerUserController : ControllerBase
