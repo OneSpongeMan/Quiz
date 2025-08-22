@@ -13,14 +13,12 @@ namespace Quiz.API.Controllers
     public class QuestionAdminController : ControllerBase
     {
         private readonly IQuestionService _questionService;
-        private readonly IAnswerService _answerService;
         private readonly IQuizzService _quizzService;
         private readonly IMapper _mapper;
 
-        public QuestionAdminController(IQuestionService questionService, IAnswerService answerService, IQuizzService quizzService, IMapper mapper)
+        public QuestionAdminController(IQuestionService questionService, IQuizzService quizzService, IMapper mapper)
         {
             _questionService = questionService;
-            _answerService = answerService;
             _quizzService = quizzService;
             _mapper = mapper;
         }
