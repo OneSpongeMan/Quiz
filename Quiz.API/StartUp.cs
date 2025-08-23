@@ -24,7 +24,7 @@ namespace Quiz.API
             _builder.Services.AddEndpointsApiExplorer();
             _builder.Services.AddAuthorization();
 
-            AddInterfaceConnectionsToService();            
+            AddInterfaceConnectionsToService();
         }
 
         private void AddInterfaceConnectionsToService()
@@ -37,7 +37,15 @@ namespace Quiz.API
                 options.UseNpgsql(connection),
                 ServiceLifetime.Transient);
 
-            _builder.Services.AddIdentity<User, Role>()
+            _builder.Services.AddIdentity<User, Role>(options =>
+            {
+                options.Password.RequiredLength = 8;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireDigit = true;
+                options.User.RequireUniqueEmail = true;
+            })
                 .AddEntityFrameworkStores<ApplicationContext>()
                 .AddDefaultTokenProviders();
 
@@ -51,10 +59,7 @@ namespace Quiz.API
                 });
             });
 
-            //_builder.Services.AddDefaultIdentity<User>()
-            //    .AddRoles<Role>();
-
-            //_builder.Services.AddAutoMapper(typeof(Program));
+            _builder.Services.AddAutoMapper(typeof(MappingProfiles));
 
             _builder.Services.AddTransient<IQuizzLoader, QuizzLoader>();
             _builder.Services.AddTransient<IQuestionLoader, QuestionLoader>();
@@ -67,12 +72,12 @@ namespace Quiz.API
             _builder.Services.AddTransient<IQuizzService, QuizzService>();
             _builder.Services.AddTransient<IQuestionService, QuestionService>();
             _builder.Services.AddTransient<IAnswerService, AnswerService>();
-            _builder.Services.AddTransient<ILogRecordService, ILogRecordService>();
+            _builder.Services.AddTransient<ILogRecordService, LogRecordService>();
             _builder.Services.AddTransient<IResultService, ResultService>();
             _builder.Services.AddTransient<IRoleService, RoleService>();
             _builder.Services.AddTransient<IUserService, UserService>();
             _builder.Services.AddTransient<IPDFCertificateService, PDFCertificateService>();
-            _builder.Services.AddSingleton<ICertificateGenerator, PDFCertificateGenerator>();
+            _builder.Services.AddTransient<ICertificateGenerator, PDFCertificateGenerator>();
         }
     }
 }
