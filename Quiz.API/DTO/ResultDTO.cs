@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Quiz.BLL.DTO
+namespace Quiz.API.DTO
 {
     public class ResultDTO
     {

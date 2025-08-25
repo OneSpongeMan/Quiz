@@ -7,9 +7,9 @@ namespace Quiz.Shared.Interfaces
     public interface IAnswerService
     {
         Answer GetAnswer(Guid id);
-        List<Answer> GetAllAnswers(Question question);
-        List<Answer> GetRightAnswers(Question question);
-        bool ValidateAnswers(Question question);
+        List<Answer> GetAllAnswers(Guid questionId);
+        List<Answer> GetRightAnswers(Guid questionId);
+        bool ValidateAnswers(Guid questionId);
         bool CreateAnswer(Question question, Answer answer);
         bool DeleteAnswer(Guid id);
         bool UpdateAnswer(Answer answer);

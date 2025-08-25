@@ -12,5 +12,7 @@ namespace Quiz.Shared.Models
         //public virtual UserStats? Stats { get; set; }
 
         public virtual ICollection<Quizz> Quizzes { get; set; }
+
+        public User(string userName) : base(userName) { }
     }
 }

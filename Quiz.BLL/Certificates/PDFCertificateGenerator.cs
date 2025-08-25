@@ -26,8 +26,9 @@ namespace Quiz.BLL.Certificates
             _answerService = answerService;
         }
 
-        public byte[] Generate(Result result)
+        public byte[] Generate(Guid resultId)
         {
+            var result = _resultService.GetResult(resultId);
             using (MemoryStream memoryStream = new MemoryStream())
             {
                 PdfWriter writer = new PdfWriter(memoryStream);
@@ -78,8 +79,8 @@ namespace Quiz.BLL.Certificates
                 var quizTotalPoints = 0;
                 foreach ( var question in result.Quizz.Questions)
                 {
-                    quizRightAnswers += _answerService.GetRightAnswers(question).Count;
-                    quizTotalPoints += _answerService.GetRightAnswers(question).Sum(q => q.Score);
+                    quizRightAnswers += _answerService.GetRightAnswers(question.Id).Count;
+                    quizTotalPoints += _answerService.GetRightAnswers(question.Id).Sum(q => q.Score);
                 }
                 var scorePercentage = Math.Round((double)result.ScoredPoints 
                     / quizTotalPoints * 100);

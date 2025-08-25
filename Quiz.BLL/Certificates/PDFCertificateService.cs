@@ -26,7 +26,7 @@ namespace Quiz.BLL.Certificates
             var result = _resultService.GetResult(resultId);
             //_filePath = $"C:\\{Environment.UserName}\\Downloads\\Result_{result.Quizz.Name}_{DateTime.Now}.pdf";
 
-            var PDFCertificate = _certificateGenerator.Generate(result);
+            var PDFCertificate = _certificateGenerator.Generate(result.Id);
             //_fileService.Write(_filePath, PDFCertificate);
 
             Thread thread = new Thread(() => _fileService.Write(_filePath, PDFCertificate));
