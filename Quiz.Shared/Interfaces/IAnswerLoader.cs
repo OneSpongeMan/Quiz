@@ -6,6 +6,7 @@ namespace Quiz.Shared.Interfaces
     {
         Answer GetAnswer(Guid id);
         List<Answer> GetAllAnswers(Question question);
+        List<Answer> GetRightAnswers(Question question);
         bool CreateAnswer(Question question, Answer answer);
         bool DeleteAnswer(Guid id);
         bool UpdateAnswer(Answer answer);

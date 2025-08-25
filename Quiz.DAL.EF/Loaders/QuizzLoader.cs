@@ -63,7 +63,8 @@ namespace Quiz.DAL.EF.Loaders
             return _applicationContext.Quizzes
                 .Include(q => q.Author)
                 .Where(q => _applicationContext.Results
-                .Any(r => r.UserId == userId && r.QuizzId == q.Id))
+                .Any(r => r.UserId == userId && r.QuizzId == q.Id)
+                && q.AuthorId != userId)
                 .ToList();
         }
 

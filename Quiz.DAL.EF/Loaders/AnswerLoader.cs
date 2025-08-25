@@ -33,6 +33,16 @@ namespace Quiz.DAL.EF.Loaders
                 .ToList();
         }
 
+        public List<Answer> GetRightAnswers(Question question)
+        {
+            return _applicationContext.Answers
+                .Include(q => q.Question)
+                .ThenInclude(q => q.Quizz)
+                .ThenInclude(q => q.Author)
+                .Where(q => q.Question == question && q.Score != 0)
+                .ToList();
+        }
+
         public bool CreateAnswer(Question question, Answer answer)
         {
             if (GetAnswer(answer.Id) == null)
