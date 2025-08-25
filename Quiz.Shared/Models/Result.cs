@@ -20,6 +20,12 @@ namespace Quiz.Shared.Models
         public Guid QuizzId { get; set; }
         public Quizz Quizz { get; set; }
 
+        public string UserId { get; set; }
+        public virtual User User { get; set; }
+
+        public Guid QuizzId { get; set; }
+        public Quizz Quizz { get; set; }
+
         public Result() { }
         public Result(Guid id, string userId, Guid quizId, int scoredPoints, int rightAnswers, DateTime start, DateTime finish)
         {
