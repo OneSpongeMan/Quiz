@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Quiz.BLL.Certificates;
 using Quiz.BLL.Services;
 using Quiz.DAL.EF;
 using Quiz.DAL.EF.Loaders;
 using Quiz.Shared.Interfaces;
 using Quiz.Shared.Models;
+using System.Text;
 
 namespace Quiz.API
 {
@@ -25,6 +28,7 @@ namespace Quiz.API
             _builder.Services.AddAuthorization();
 
             AddInterfaceConnectionsToService();
+            AddAutentificationToServices();
         }
 
         private void AddInterfaceConnectionsToService()
@@ -78,6 +82,30 @@ namespace Quiz.API
             _builder.Services.AddTransient<IUserService, UserService>();
             _builder.Services.AddTransient<IPDFCertificateService, PDFCertificateService>();
             _builder.Services.AddTransient<ICertificateGenerator, PDFCertificateGenerator>();
+        }
+
+        private void AddAutentificationToServices()
+        {
+            _builder.Services.AddAuthentication(option =>
+            {
+                option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero,
+
+                    ValidIssuer = _builder.Configuration["JWT:Issuer"],
+                    ValidAudience = _builder.Configuration["JWT:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_builder.Configuration["JWT:Key"]))
+                };
+            });
         }
     }
 }
