@@ -16,6 +16,7 @@ namespace Quiz.DAL.EF.Loaders
         public Question GetQuestion(Guid id)
         {
             return _applicationContext.Questions
+                .Include(q => q.Answers)
                 .Include(q => q.Quizz)
                 .ThenInclude(q => q.Author)
                 .Where(q => q.Id == id)
@@ -25,6 +26,7 @@ namespace Quiz.DAL.EF.Loaders
         public List<Question> GetAllQuestions(Quizz quizz)
         {
             return _applicationContext.Questions
+                .Include(q => q.Answers)
                 .Include(q => q.Quizz)
                 .ThenInclude(q => q.Author)
                 .Where(q => q.Quizz == quizz)

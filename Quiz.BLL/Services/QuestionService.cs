@@ -6,10 +6,12 @@ namespace Quiz.BLL.Services
     public class QuestionService : IQuestionService
     {
         private IQuestionLoader _questionLoader;
+        private IQuizzLoader _quizzLoader;
 
-        public QuestionService(IQuestionLoader questionLoader)
+        public QuestionService(IQuestionLoader questionLoader, IQuizzLoader quizzLoader)
         {
             _questionLoader = questionLoader;
+            _quizzLoader = quizzLoader;
         }
 
         public Question GetQuestion(Guid id)
@@ -17,8 +19,9 @@ namespace Quiz.BLL.Services
             return _questionLoader.GetQuestion(id);
         }
 
-        public List<Question> GetAllQuestions(Quizz quizz)
+        public List<Question> GetAllQuestions(Guid quizzId)
         {
+            var quizz = _quizzLoader.GetQuizz(quizzId);
             return _questionLoader.GetAllQuestions(quizz);
         }
 

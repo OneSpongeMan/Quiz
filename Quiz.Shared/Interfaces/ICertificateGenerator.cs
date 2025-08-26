@@ -4,6 +4,6 @@ namespace Quiz.Shared.Interfaces
 {
     public interface ICertificateGenerator
     {
-        byte[] Generate(Result result);
+        byte[] Generate(Guid resultId);
     }
 }
