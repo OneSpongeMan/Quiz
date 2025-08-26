@@ -7,6 +7,7 @@ namespace Quiz.Shared.Interfaces
         Role GetRole(string id);
         List<Role> GetAllRoles();
         //bool UserHasRole();
+        List<Role> GetUserRoles(string userId);
         bool CreateRole(Role role);
         bool DeleteRole(string id);
         bool UpdateRole(Role role);
