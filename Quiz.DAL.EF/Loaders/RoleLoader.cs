@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Quiz.Shared.Interfaces;
 using Quiz.Shared.Models;
+using System.Data.Entity;
 
 namespace Quiz.DAL.EF.Loaders
 {
@@ -23,6 +24,17 @@ namespace Quiz.DAL.EF.Loaders
         public List<Role> GetAllRoles()
         {
             return _applicationContext.Roles.ToList();
+        }
+
+        public List<Role> GetUserRoles(string userId)
+        {
+            return _applicationContext.UserRoles
+                .Where(q => q.UserId == userId)
+                .Join(_applicationContext.Roles,
+                    userRole => userRole.RoleId,
+                    role => role.Id,
+                    (userRole, role) => role)
+                .ToList();
         }
 
         public bool CreateRole(Role role)
