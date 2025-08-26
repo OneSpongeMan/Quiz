@@ -12,7 +12,13 @@ namespace Quiz.Shared.Models
         public int RightAnswers { get; set; }
         //public virtual ICollection<Answer> UserAnswers { get; set; } = new HashSet<Answer>();
         public DateTime Start { get; set; }
-        public DateTime Finish { get; set; }
+        public DateTime? Finish { get; set; }
+
+        public string UserId { get; set; }
+        public virtual User User { get; set; }
+
+        public Guid QuizzId { get; set; }
+        public Quizz Quizz { get; set; }
 
         public string UserId { get; set; }
         public virtual User User { get; set; }

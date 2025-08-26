@@ -21,11 +21,27 @@ namespace Quiz.DAL.EF.Loaders
                 .FirstOrDefault();
         }
 
+        public Result GetUserQuizResult(Guid quizzId, string userId)
+        {
+            return _applicationContext.Results
+                .Include(q => q.User)
+                .Where(q => q.UserId == userId && q.QuizzId == quizzId)
+                .FirstOrDefault();
+        }
+
         public List<Result> GetQuizzResults(Guid quizzId)
         {
             return _applicationContext.Results
                 .Include(q => q.User)
                 .Where(q => q.QuizzId == quizzId)
+                .ToList();
+        }
+
+        public List<Result> GetUserResults(string userId)
+        {
+            return _applicationContext.Results
+                .Include(q => q.User)
+                .Where(q => q.UserId == userId)
                 .ToList();
         }
 
