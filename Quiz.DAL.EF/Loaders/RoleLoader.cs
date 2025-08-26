@@ -25,17 +25,6 @@ namespace Quiz.DAL.EF.Loaders
             return _applicationContext.Roles.ToList();
         }
 
-        public List<Role> GetUserRoles(string userId)
-        {
-            return _applicationContext.UserRoles
-                .Where(q => q.UserId == userId)
-                .Join(_applicationContext.Roles,
-                    userRole => userRole.RoleId,
-                    role => role.Id,
-                    (userRole, role) => role)
-                .ToList();
-        }
-
         public bool CreateRole(Role role)
         {
             if (GetRole(role.Id) == null)

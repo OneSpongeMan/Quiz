@@ -22,11 +22,6 @@ namespace Quiz.BLL.Services
             return _roleLoader.GetAllRoles();
         }
 
-        public List<Role> GetUserRoles(string userId)
-        {
-            return _roleLoader.GetUserRoles(userId);
-        }
-
         public bool CreateRole(Role role)
         {
             role.Id = Guid.NewGuid().ToString();
