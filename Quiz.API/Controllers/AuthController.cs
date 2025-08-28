@@ -8,7 +8,6 @@ using System.Text;
 using Quiz.Shared.Interfaces;
 using Quiz.Shared.Models;
 
-
 namespace Quiz.API.Controllers
 {
     [Route("api/[controller]")]
