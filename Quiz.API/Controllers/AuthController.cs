@@ -16,20 +16,22 @@ namespace Quiz.API.Controllers
     {
         private readonly IConfiguration _configuration;
         private readonly IUserService _userService;
-        private readonly UserManager<User> _userIdentityManager;
+        private readonly IRoleService _roleService;
 
-        public AuthController(IConfiguration configuration, IUserService userService)
+        public AuthController(IConfiguration configuration, IUserService userService, IRoleService roleService)
         {
             _configuration = configuration;
             _userService = userService;
+            _roleService = roleService;
         }
 
         [AllowAnonymous]
         [HttpPost("Auth")]
-        public async Task<IActionResult> Auth([FromBody] Login authData)
+        public IActionResult Auth([FromBody] Login authData)
         {
             var validUser = _userService.GetValidUser(authData.UserName, authData.Password);
-            var roles = await _userIdentityManager.GetRolesAsync(validUser);
+            var roles = _roleService.GetUserRoles(validUser.Id)
+                .Select(q => q.Name);
 
             if (validUser != null)
             {
