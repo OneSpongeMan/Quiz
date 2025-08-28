@@ -24,7 +24,7 @@ namespace Quiz.BLL.Services
 
         public List<Role> GetUserRoles(string userId)
         {
-            throw new NotImplementedException(userId);
+            return _roleLoader.GetUserRoles(userId);
         }
 
         public bool CreateRole(Role role)
